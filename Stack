@@ -1,0 +1,41 @@
+function Stack(){
+    this.first = null;
+    this.last = null;
+    this.get = function(){
+        return this.first;
+    }
+}
+
+Stack.prototype.newNode= function(text) {
+    return {"text":text, "next":null};
+}
+Stack.prototype.push = function(text) {
+    if(!this.first ){
+        this.first = newNode(text);
+        this.last = this.first;
+    } else{
+        let node = newNode(text);
+        this.last.next = node;
+        this.last = node;
+    }
+}
+
+Stack.prototype.pop = function () {
+    if(!this.last){
+        console.log("no items");
+    } else if(!this.first.next){
+        this.first =null;
+        this.last = null;
+    } else{
+        let presentnode = this.first;
+        while(presentnode.next.next){
+            presentnode = presentnode.next;
+        }
+        presentnode.next= null;
+        this.last=presentnode;
+    }
+}
+
+
+var list = new Stack();
+list.get();
