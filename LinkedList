@@ -1,0 +1,83 @@
+function SingleLL(){
+    this.head = null;
+    this.tail = null;
+    this.getList = function(){
+        return this.head;
+    }
+}
+
+function newNode(text) {
+    return {"text":text, "next":null};
+}
+SingleLL.prototype.push = function(text) {
+    if(!this.head){
+        this.head = newNode(text);
+        this.tail = this.head;
+    } else{
+        let node = newNode(text);
+        this.tail.next = node;
+        this.tail = node;
+    }
+}
+SingleLL.prototype.unshift = function(text) {
+    let node = newNode(text);
+    node.next = this.head;
+    this.head = node;
+    return this.head;
+}
+SingleLL.prototype.shift = function() {
+    this.head = this.head.next;
+    return this.head;
+}
+SingleLL.prototype.delete = function (text) {
+    if(!this.head){
+        console.log("No elements in the List");
+    } else if(this.head.text != text && !this.head.next){
+        console.log("No elements in the List");
+    } else if(this.head.text == text){
+        this.unshift();
+    } else{
+        let presentNode = this.head;
+        while(presentNode.next.next !=null){
+            if(presentNode.next.text == text){
+                presentNode.next = presentNode.next.next; 
+            } else{
+                presentNode = presentNode.next;
+            }
+        }
+    }
+    
+}
+SingleLL.prototype.pop = function () {
+    if(!this.head){
+        console.log("no items");
+    } else if(!this.head.next){
+        this.head = null;
+    } else{
+        let nextnode=this.head.next;
+        while(nextnode.next.next){
+            nextnode = nextnode.next;
+        }
+        nextnode.next = null;
+    }
+}
+SingleLL.prototype.set = function (text, index) {
+    if(!index){
+        this.unshift(text);
+    } else{
+        let i=0;
+        let presentNode = this.head;
+        while(presentNode.next){
+            i++;
+            if(i==index){
+                let node =newNode(text);
+                node.next = presentNode.next;
+                presentNode.next = node;
+            }
+            presentNode = presentNode.next;
+        }
+    }
+}
+
+var list = new SingleLL();
+list.getList();
