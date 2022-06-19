@@ -1,0 +1,89 @@
+function DoubleLL(){
+    this.head = null;
+    this.tail = null;
+    this.getList = function(){
+        return this.head;
+    }
+}
+
+function newNode(text, previous) {
+    return {"text":text, "next":null, "previous": previous || null};
+}
+DoubleLL.prototype.push = function(text) {
+    if(!this.head){
+        this.head = newNode(text);
+        this.tail = this.head;
+    } else{
+        let node = newNode(text, this.tail);
+        this.tail.next = node;
+        this.tail = node;
+    }
+}
+DoubleLL.prototype.unshift = function(text) {
+    let node = newNode(text, null);
+    node.next = this.head;
+    this.head.previous = node;
+    this.head = node;
+    return this.head;
+}
+DoubleLL.prototype.shift = function() {
+    this.head = this.head.next;
+    this.head.previous = null;
+    return this.head;
+}
+DoubleLL.prototype.delete = function (text) {
+    if(!this.head){
+        console.log("No elements in the List");
+    } else if(this.head.text != text && !this.head.next){
+        console.log("No elements in the List");
+    } else if(this.head.text == text){
+        this.unshift();
+    } else{
+        let presentNode = this.head;
+        while(presentNode.next.next !=null){
+            if(presentNode.next.text == text){
+                presentNode.next.next.previous= presentNode;
+                presentNode.next = presentNode.next.next; 
+            } else{
+                
+                presentNode = presentNode.next;
+            }
+        }
+    }
+    
+}
+DoubleLL.prototype.pop = function () {
+    if(!this.head){
+        console.log("no items");
+    } else if(!this.head.next){
+        this.head = null;
+    } else{
+        let nextnode=this.head.next;
+        while(nextnode.next.next){
+            nextnode = nextnode.next;
+        }
+        nextnode.next = null;
+    }
+}
+DoubleLL.prototype.set = function (text, index) {
+    if(!index){
+        this.unshift(text);
+    } else{
+        let i=0;
+        let presentNode = this.head;
+        while(presentNode.next){
+            i++;
+            if(i==index){
+                let node =newNode(text);
+                node.next = presentNode.next;
+                node.previous = presentNode;
+                presentNode.next.previous= node;
+                presentNode.next = node;
+            }
+            presentNode = presentNode.next;
+        }
+    }
+}
+
+var list = new DoubleLL();
+list.getList();
