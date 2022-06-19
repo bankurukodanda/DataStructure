@@ -1,0 +1,35 @@
+function BSTree(){
+    this.root =null;
+    this.get =function () {
+        return this.root;
+    }
+}
+
+BSTree.prototype.Node= function(value) {
+    return {"value":value, "left":null, "right":null};
+}
+
+BSTree.prototype.addNode= function (value) {
+   if(!this.root){
+        this.root = this.Node(value);
+    } else{
+        this.insertNode(value, this.root);
+    } 
+}
+BSTree.prototype.insertNode = function (value, parent) {
+    if(parent.value < value){
+        if(parent.right){
+           this.insertNode(value, parent.right);
+        } else{
+            parent.right = this.Node(value);
+        }
+    } else{
+        if(parent.left){
+            this.insertNode(value, parent.left);
+        } else{
+            parent.left = this.Node(value);
+        }
+    }
+}
+
+var tree = new BSTree();
