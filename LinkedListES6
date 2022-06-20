@@ -101,9 +101,11 @@ class LinkedList{
           } else{
             node = node.next
           }
+          eleIndex++
         }
-      } 
-    console.log("List is shorter than the index provided")
+      }
+    if(!found)
+      console.log("List is shorter than the index provided")
   }
   delete(value){
     let found = false;
