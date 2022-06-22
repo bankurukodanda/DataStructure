@@ -1,0 +1,40 @@
+class Branch{
+  constructor(value){
+    this.point = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+class BSTree{
+  constructor(){
+    this.tree = null;
+  }
+
+  addBranch(value, base){
+    if(!this.tree){
+      this.tree = new Branch(value);
+      
+    } else{
+         if(!base) {
+            base = this.tree;
+          } 
+          if(base.point > value){
+            if(!base.left){
+              base.left = new Branch(value);
+            }else{
+              this.addBranch(value, base.left);
+            }
+          } else{
+            if(!base.right){
+              base.right = new Branch(value);
+            }else{
+              this.addBranch(value, base.right);
+            }
+          }
+    }
+     
+  }
+  get(){
+    return this.tree;
+  }
+}
