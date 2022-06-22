@@ -1,138 +1,162 @@
-class Node{
-  constructor(value){
-    this.text=value;
-    this.next=null;
-    this.prev = null;
-  }
+class Node {
+	constructor(value) {
+		this.text = value;
+		this.next = null;
+		this.prev = null;
+	}
 }
-class DoubleLinkedList{
-  constructor(){
-    this.head= null;
-    this.tail=null;
-    this.length=0;
-  }
-  static EMPTY_LIST = "No items in the LinkedList";
-  get(){
-    console.log(`we have ${this.length} items in the LinkedList`);
-    return this.head;
-  }
-  
-  unshift(value){
-    let node = new Node(value);
-    if(!this.head){
-      this.head = node;
-      this.tail = this.head;
-      this.length++;
-    } else{
-      this.head.prev = node;
-      node.next = this.head;
-      this.head = node;
-      this.length++;
-    }
-    
-  }
-  
-  push(value){
-    if(!this.head){
-      this.head = new Node(value);
-      this.tail = this.head;
-      this.length++;
-    } else{
-      let node = new Node(value);
-      node.prev = this.tail;
-      this.tail.next = node;
-      this.tail = node;
-      this.length++;
-    }
-  }
+class DoubleLinkedList {
+	constructor() {
+		this.head = null;
+		this.tail = null;
+		this.length = 0;
+	}
+	static EMPTY_LIST = "No items in the LinkedList";
+	get() {
+		console.log(`we have ${this.length} items in the LinkedList`);
+		return this.head;
+	}
 
-  shift(){
-    if(!this.head){
-      console.log(LinkedList.EMPTY_LIST);
-    } else if (!this.head.next){
-      this.head = null;
-      this.tail = null;
-      this.index--;
-    } else{
-      this.head = this.head.next;
-      this.head.prev= null;
-      this.index--;
-    }
-  }
-  
-  pop(){
-    if(!this.head){
-      console.log(LinkedList.EMPTY_LIST);
-      return this.head;
-    } else if (!this.head.next){
-      let lastNode = this.head;
-      this.head = null;
-      this.tail = null;
-      this.index--;
-      return lastNode;
-    } else{
-      let node = this.head;
-      while(node.next.next){
-        node = node.next;
-      }
-      let lastNode= node.next;
-      node.next = null;
-      this.tail = node;
-      this.length--;
-      return lastNode;
-    }
-  }
-  set(value, index){
-    let found = false;
-      if(index == 0 ){
-        found = true;
-        this.unshift(value);
-      } else if(this.length == index){
-        found = true;
-        this.push(value);
-      } else if(!this.head){
-        console.log(LinkedList.EMPTY_LIST);
-      } else{
-        let eleIndex = 0;
-        let node = this.head
-        while(node.next){
-          if(eleIndex == index){
-            let newNode = new Node(value);
-            newNode.next = node.next;
-            newNode.prev = node;
-            newNode.next.prev =newNode;
-            node.next = newNode;
-            this.length++;
-            found = true;
-          } else{
-            node = node.next
-          }
-          eleIndex++;
-        }
-      } 
-    if(!found)
-    console.log("List is shorter than the index provided")
-  }
-  delete(value){
-    let found = false;
-      if(!this.head){
-        console.log(LinkedList.EMPTY_LIST);
-      } else if(this.head.text == value){
-        this.head = this.head.next;
-        this.length--;
-      }else{
-        let node = this.head
-        while(node.next && node.next.text != value ){
-          node = node.next
-        }
-        if(node.next.text == value){
-          node.next.next.prev = node.next.prev;
-          node.next = node.next.next;
-          this.length--;
-        } else{
-          console.log("Items not available in the LinkedList");
-        }
-      }
-  }
+	unshift(value) {
+		let node = new Node(value);
+		if (!this.head) {
+			this.head = node;
+			this.tail = this.head;
+			this.length++;
+		} else {
+			this.head.prev = node;
+			node.next = this.head;
+			this.head = node;
+			this.length++;
+		}
 
+	}
+
+	push(value) {
+		if (!this.head) {
+			this.head = new Node(value);
+			this.tail = this.head;
+			this.length++;
+		} else {
+			let node = new Node(value);
+			node.prev = this.tail;
+			this.tail.next = node;
+			this.tail = node;
+			this.length++;
+		}
+	}
+
+	shift() {
+		if (!this.head) {
+			console.log(LinkedList.EMPTY_LIST);
+		} else if (!this.head.next) {
+			this.head = null;
+			this.tail = null;
+			this.index--;
+		} else {
+			this.head = this.head.next;
+			this.head.prev = null;
+			this.index--;
+		}
+	}
+
+	pop() {
+		if (!this.head) {
+			console.log(LinkedList.EMPTY_LIST);
+			return this.head;
+		} else if (!this.head.next) {
+			let lastNode = this.head;
+			this.head = null;
+			this.tail = null;
+			this.index--;
+			return lastNode;
+		} else {
+			let node = this.head;
+			while (node.next.next) {
+				node = node.next;
+			}
+			let lastNode = node.next;
+			node.next = null;
+			this.tail = node;
+			this.length--;
+			return lastNode;
+		}
+	}
+	set(value, index) {
+		let found = false;
+		if (index == 0) {
+			found = true;
+			this.unshift(value);
+		} else if (this.length == index) {
+			found = true;
+			this.push(value);
+		} else if (!this.head) {
+			console.log(LinkedList.EMPTY_LIST);
+		} else {
+			let eleIndex = 0;
+			let node = this.head
+			while (node.next) {
+				if (eleIndex == index) {
+					let newNode = new Node(value);
+					newNode.next = node.next;
+					newNode.prev = node;
+					newNode.next.prev = newNode;
+					node.next = newNode;
+					this.length++;
+					found = true;
+				} else {
+					node = node.next
+				}
+				eleIndex++;
+			}
+		}
+		if (!found)
+			console.log("List is shorter than the index provided")
+	}
+	delete(value) {
+		let found = false;
+		if (!this.head) {
+			console.log(LinkedList.EMPTY_LIST);
+		} else if (this.head.text == value) {
+			this.head = this.head.next;
+			this.length--;
+		} else {
+			let node = this.head
+			while (node.next && node.next.text != value) {
+				node = node.next
+			}
+			if (node.next.text == value) {
+				node.next.next.prev = node.next.prev;
+				node.next = node.next.next;
+				this.length--;
+			} else {
+				console.log("Items not available in the LinkedList");
+			}
+		}
+	}
+	reverse() {
+		if (!this.head) {
+			console.log(LinkedList.EMPTY_LIST);
+		} else if (!this.head.next) {
+			return this.head;
+		} else {
+			let presentHead = this.tail;
+			while (presentHead && presentHead.prev) {
+				let temp = presentHead.prev;
+				presentHead.prev = presentHead.next;
+				presentHead.next = temp;
+
+				presentHead = presentHead.next;
+
+			}
+			let temp = presentHead.prev;
+			presentHead.prev = presentHead.next;
+			presentHead.next = temp;
+			this.head = this.tail;
+			this.tail = presentHead;
+
+			console.log(this.head);
+
+		}
+	}
 }
