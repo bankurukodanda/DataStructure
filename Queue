@@ -1,0 +1,42 @@
+class Node {
+  constructor(value){
+    this.text = value;
+    this.next = null;
+  }
+  
+}
+class Queue{
+  constructor(){
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+  push(value){
+    let node = new Node(value);
+    if(!this.head){
+      this.head = node;
+      this.tail = node;
+      this.length++;
+    } else{
+      this.tail.next = node;
+      this.tail = this.tail.next;
+      this.length++;
+    }
+  }
+  pop(){
+    if(!this.head){
+      console.log("No items in Stack");
+    } else{
+      let node =this.head.text;
+      this.head = this.head.next;
+      return node;
+    }
+  }
+
+}
+
+
+//We are implement with Array 
+array.push() => to insert elements;
+array.shift() => get first element 
+In this case timeComplexity with O(n)
