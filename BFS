@@ -1,0 +1,32 @@
+function bfs(tree){
+
+    let arr = [];
+    let queue = [];
+    queue.push(tree);
+    
+    while(queue.length){
+        let ele = queue[0]
+        if(!ele.right && !ele.left){
+            arr.push(ele.text);
+            queue.shift()
+        } else{
+            if(ele.left){
+                queue.push(ele.left)
+            } 
+            if(ele.right){
+                queue.push(ele.right);
+            }
+            queue.shift()
+            arr.push(ele.text);
+        }
+    }
+    console.log(arr);
+}
+
+
+//bfs({"text":10,"left":{"left":{"left":null,"right":null,"text":3},"right":{"left":null,"right":null,"text":8},"text":6},"right":{"left":null,"right":{"left":null,"right":null,"text":20},"text":15}})
+Steps:
+1) create a queue, array ;
+2) Insert root node in queue, iterate until queue is empty
+3) Add elements to queue whil travelling
+4) remove element from queue after pushing element in an array
