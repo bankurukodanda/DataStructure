@@ -1,0 +1,52 @@
+var pushEleToArray = function(arr, ele) {
+    if (arr && Array.isArray(arr)) {
+        arr.push(ele);
+    } else {
+        arr = [];
+        arr.push(ele);
+    }
+    return arr
+}
+function radixsort(arr, digit = 1) {
+    var qArray = [];
+    var nextDigit = false;
+
+    arr.forEach(ele => {
+        let remainder = ele % (Math.pow(10, digit));
+        if (ele < Math.pow(10, (digit - 1)) || isNaN(remainder)) {
+            qArray[0] = pushEleToArray(qArray[0], ele);
+        } else {
+            if (ele >= Math.pow(10, (digit))) {
+                nextDigit = true;
+            }
+            qArray[remainder] = pushEleToArray(qArray[remainder], ele);
+        }
+    })
+
+    var arr2 = [];
+    qArray.forEach(a => {
+        arr2.push(...a);
+    })
+
+    if (nextDigit) {
+        digit++;
+        return radixsort(arr2, digit);
+    } else {
+        return arr2;
+    }
+}
+
+console.log(radixsort([1556, 4, 3556, 593, 408, 4386, 902, 7, 8157, 86, 9637, 29]));
+/** Radix Sort **/
+/****
+*Define a function which accepts list of numbers
+*Iterate this function until it matches with number of digits
+*For each iteration
+  *Create a bucket for each digit (0,9)
+  *Place each number in correspoding bucket based on its iteration count
+  *Replace our existing array with the values in our bucket from (0 to 9)
+*return list at the end
+
+***/
+
+/** Radix End **/
