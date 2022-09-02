@@ -1,0 +1,56 @@
+class MaxBinaryHeap{
+    constructor(){
+        this.values=[];
+    }
+    push(ele){
+        this.values.push(ele)
+        this.bubbleUp();
+    }
+    display(){
+        console.log(this.values);
+    }
+    getMax(){
+       let lastNode = this.values.length-1;
+        [this.values[0], this.values[lastNode]] = [this.values[lastNode], this.values[0]];
+        let result = this.values[lastNode];  
+        this.values.pop();
+        this.sinkDown();
+        return result;
+    }
+    bubbleUp(){
+        let eleNode = this.values.length-1;
+        let parentIndx = Math.floor((eleNode-1)/2);
+        while(this.values[parentIndx] < this.values[eleNode]){
+            [this.values[parentIndx], this.values[eleNode]] = [this.values[eleNode], this.values[parentIndx]];
+            eleNode = parentIndx;
+            parentIndx = Math.floor((parentIndx-1)/2)
+        }
+    }
+    sinkDown(){
+        let parentIndx=0;
+        while(this.values[parentIndx] < this.values[(2*parentIndx+1)] || this.values[parentIndx] < this.values[(2*parentIndx+2)]){
+            if(this.values[parentIndx] < this.values[(2*parentIndx+1)] && this.values[parentIndx] < this.values[(2*parentIndx+2)]){
+                if(this.values[(2*parentIndx+1)] > this.values[(2*parentIndx+2)]){
+                    [this.values[parentIndx], this.values[(2*parentIndx+2)]] = [this.values[(2*parentIndx+2)], this.values[parentIndx]];
+                    parentIndx = 2*parentIndx+2;
+                } else{
+                    [this.values[parentIndx], this.values[(2*parentIndx+1)]] = [this.values[(2*parentIndx+1)], this.values[parentIndx]];
+                    parentIndx = 2*parentIndx+1;
+                }
+            } else if(this.values[parentIndx] < this.values[(2*parentIndx+1)] ){
+                [this.values[parentIndx], this.values[(2*parentIndx+1)]] = [this.values[(2*parentIndx+1)], this.values[parentIndx]];
+                parentIndx = 2*parentIndx+1;
+            } else{
+                [this.values[parentIndx], this.values[(2*parentIndx+2)]] = [this.values[(2*parentIndx+2)], this.values[parentIndx]];
+                parentIndx = 2*parentIndx+2;
+            }
+        }
+        
+        
+    }
+}
+var mbh = new MaxBinaryHeap();
+mbh.push(1);
+mbh.push(2);
+mbh.push(3);
+mbh.display();
